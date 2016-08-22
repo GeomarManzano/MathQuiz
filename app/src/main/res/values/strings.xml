@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">MathQuiz</string>
-    <string name="question_text">71 is a prime number</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
+    <string name="prev_button">Prev</string>
+    <string name="next_button">Next</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
+
+    <!-- Questions -->
+    <string name="question_number">23 is prime</string>
+    <string name="question_trig">tanx = cosx/sinx</string>
+    <string name="question_sum">1+2+&#x2026;+10=55</string>
+    <string name="question_algebra">x=3 for 2x + 3 = 10</string>
+    <string name="question_mod">11 mod 5 = 1</string>
+    <string name="question_binary">101 is 5 in binary</string>
 </resources>
