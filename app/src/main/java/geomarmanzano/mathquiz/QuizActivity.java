@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
     private static final String KEY_INDEX = "index";
+    private static final String KEY_BOOL = "isCheater";
     private static final int DEFAULT_INT = 0;
+    private static final boolean DEFAULT_BOOL = false;
     private static final String CLASS_TAG = "QuizActivity";
     private static final int REQUEST_CODE_CHEAT = 0;
 
@@ -40,9 +42,13 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        Log.d(CLASS_TAG, "onCreate entered");
+
+        mIsCheater = false;
 
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, DEFAULT_INT);
+            mIsCheater = savedInstanceState.getBoolean(KEY_BOOL, DEFAULT_BOOL);
         }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
@@ -132,11 +138,16 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        Log.d(CLASS_TAG, "onSaveInstanceState entered");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putBoolean(KEY_BOOL, mIsCheater);
     }
 
     @Override
     protected void onActivityResult(int reqCode, int resCode, Intent data) {
+        super.onActivityResult(reqCode, resCode, data);
+        Log.d(CLASS_TAG, "onActivityResult entered");
+
         if (resCode != Activity.RESULT_OK) {
             return;
         }
@@ -150,6 +161,8 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void updateQuestion(int n) {
+        Log.d(CLASS_TAG, "updateQuestion entered");
+
         if (n < 0) {
             n = Math.abs(n) % mQuestionBank.length;
             mCurrentIndex = (mCurrentIndex + mQuestionBank.length - n) %
@@ -161,6 +174,8 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void checkAnswer(boolean userPressedTrue) {
+        Log.d(CLASS_TAG, "checkAnswer entered");
+
         int messageResId;
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
