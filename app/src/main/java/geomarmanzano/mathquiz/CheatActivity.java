@@ -15,7 +15,8 @@ public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER = "geomarmanzano.mathquiz.answer";
     private static final String EXTRA_ANSWER_SHOWN =
             "geomarmanzano.mathquiz.answer_shown";
-
+    private static final String EXTRA_CLEAR_SETTINGS =
+            "geomarmanzano.mathquiz.clear_settings";
     private static final boolean DEFAULT_BOOL = false;
     private static final String CLASS_TAG = "CheatActivity";
 
@@ -24,11 +25,14 @@ public class CheatActivity extends AppCompatActivity {
 
     private boolean mAnswer;
     private boolean mIsAnswerShown;
+    private boolean mClearSettings;
 
-    public static Intent newIntent(Context packageContext, boolean answer) {
+    public static Intent newIntent(Context packageContext,
+                                   boolean answer, boolean clearSettings) {
         Log.d(CLASS_TAG, "newIntent entered");
         Intent i = new Intent(packageContext, CheatActivity.class);
         i.putExtra(EXTRA_ANSWER, answer);
+        i.putExtra(EXTRA_CLEAR_SETTINGS, clearSettings);
         return i;
     }
 
@@ -59,6 +63,12 @@ public class CheatActivity extends AppCompatActivity {
         }
 
         mAnswer = getIntent().getBooleanExtra(EXTRA_ANSWER, DEFAULT_BOOL);
+        mClearSettings = getIntent().getBooleanExtra(EXTRA_CLEAR_SETTINGS,
+                DEFAULT_BOOL);
+
+        if (mClearSettings) {
+            mIsAnswerShown = false;
+        }
 
         mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
 
